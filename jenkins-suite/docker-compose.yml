@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  jenkins:
+    image: jenkinsci/blueocean
+    ports:
+      - 8080:8080
+      - 50000:50000
+  db:
+    image: postgres:10.10
+    restart: always
+    environment:
+        POSTGRES_PASSWORD: "r3p1ac3m3#"
+    ports:
+    - 5432:5432
+  sonar:
+    image: sonarqube
+    ports:
+      - 9000:9000
