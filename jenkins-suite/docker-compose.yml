@@ -3,6 +3,9 @@ version: "3.7"
 services:
   jenkins:
     image: jenkinsci/blueocean
+    user: root
+    volumes:
+      - jenkins_home:/var/jenkins_home
     ports:
       - 8080:8080
       - 50000:50000
@@ -10,10 +13,24 @@ services:
     image: postgres:10.10
     restart: always
     environment:
-        POSTGRES_PASSWORD: "r3p1ac3m3#"
+      POSTGRES_USER: ${POSTGRES_USRE}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
     - 5432:5432
   sonar:
     image: sonarqube
+    environment:
+      - sonar.jdbc.url=jdbc:postgresql://db:5432/sonar
     ports:
       - 9000:9000
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      # - ${SONAR_CONF}:/opt/sonarqube/conf
+
+volumes:
+  sonarqube_data:
+  sonarqube_logs:
+  sonarqube_extensions:
+  jenkins_home:

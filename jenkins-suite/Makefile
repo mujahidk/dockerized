@@ -9,3 +9,9 @@ stop:
 
 clean:
 	docker-compose down
+
+logs:
+	docker-compose logs
+
+ps:
+	docker-compose ps
