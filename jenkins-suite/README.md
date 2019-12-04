@@ -24,5 +24,9 @@ Related:
 ### Artifactory/Nexus dependency server
 > Store Maven and other dependencies
 
+Related:
+
+[Artifactory Database](https://www.jfrog.com/confluence/display/RTF/Changing+the+Database)
+
 ### Docker registry (optional)
 > Push Docker images created by Jenkins build

@@ -13,18 +13,21 @@ services:
     image: postgres:10.10
     restart: always
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${SONAR_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${SONAR_POSTGRES_PASSWORD}
     ports:
     - 5432:5432
     volumes:
+      - ${POSTGRES_INIT}:/docker-entrypoint-initdb.d/
       - postgres_data:/var/lib/postgresql/data
   sonar:
     image: sonarqube
+    depends_on:
+      - db
     environment:
       - sonar.jdbc.url=jdbc:postgresql://db:5432/sonar
-      - sonar.jdbc.username=${POSTGRES_USER}
-      - sonar.jdbc.password=${POSTGRES_PASSWORD}
+      - sonar.jdbc.username=${SONAR_POSTGRES_USER}
+      - sonar.jdbc.password=${SONAR_POSTGRES_PASSWORD}
     ports:
       - 9000:9000
     volumes:
@@ -32,6 +35,20 @@ services:
       - sonarqube_logs:/opt/sonarqube/logs
       - sonarqube_extensions:/opt/sonarqube/extensions
       - ${SONAR_CONF}:/opt/sonarqube/conf
+  artifactory:
+    image: docker.bintray.io/jfrog/artifactory-oss
+    depends_on:
+      - db
+    ports:
+      - 8081:8081
+    environment:
+      - DB_TYPE=postgresql
+      - DB_HOST=db
+      - DB_USER=${ARTIFACTORY_POSTGRES_USER}
+      - DB_PASSWORD=${ARTIFACTORY_POSTGRES_PASSWORD}
+    volumes:
+      - artifactory_data:/var/opt/jfrog/artifactory
+    restart: always
 
 volumes:
   sonarqube_data:
@@ -39,3 +56,4 @@ volumes:
   sonarqube_extensions:
   jenkins_home:
   postgres_data:
+  artifactory_data:
