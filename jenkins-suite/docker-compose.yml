@@ -13,24 +13,29 @@ services:
     image: postgres:10.10
     restart: always
     environment:
-      POSTGRES_USER: ${POSTGRES_USRE}
+      POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
     - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
   sonar:
     image: sonarqube
     environment:
       - sonar.jdbc.url=jdbc:postgresql://db:5432/sonar
+      - sonar.jdbc.username=${POSTGRES_USER}
+      - sonar.jdbc.password=${POSTGRES_PASSWORD}
     ports:
       - 9000:9000
     volumes:
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_logs:/opt/sonarqube/logs
       - sonarqube_extensions:/opt/sonarqube/extensions
-      # - ${SONAR_CONF}:/opt/sonarqube/conf
+      - ${SONAR_CONF}:/opt/sonarqube/conf
 
 volumes:
   sonarqube_data:
   sonarqube_logs:
   sonarqube_extensions:
   jenkins_home:
+  postgres_data:

@@ -18,6 +18,8 @@ Jenkins CI/CD Suite
 Related:
 
 [Install the SonarQube server](https://docs.sonarqube.org/latest/setup/install-server/)
+[SonarQube configuration](https://github.com/SonarSource/sonarqube/blob/master/sonar-application/src/main/assembly/conf/sonar.properties)
+[Docker Hub - sonarqube](https://hub.docker.com/_/sonarqube/)
 
 ### Artifactory/Nexus dependency server
 > Store Maven and other dependencies
