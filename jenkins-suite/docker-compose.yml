@@ -6,6 +6,7 @@ services:
     user: root
     volumes:
       - jenkins_home:/var/jenkins_home
+      - release_packages:/repo/releases
     ports:
       - 8080:8080
       - 50000:50000
@@ -57,5 +58,6 @@ volumes:
   sonarqube_logs:
   sonarqube_extensions:
   jenkins_home:
+  release_packages:
   postgres_data:
   artifactory_data:
