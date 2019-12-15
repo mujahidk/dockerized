@@ -1,0 +1,1 @@
+Place Glowroot Central ZIP archive in this directory.
