@@ -3,9 +3,9 @@ version: "3.7"
 services:
   cassandra:
     image: cassandra
-  glowroot:
+  central:
   #   image: glowroot/glowroot-central:0.13.5
-    build: cental
+    build: central
     ports:
         - 4000:4000
         - 8181:8181
