@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+  app:
+    build: geograph-app
+    ports:
+      - 8082:8080
