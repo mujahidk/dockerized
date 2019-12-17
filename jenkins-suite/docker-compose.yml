@@ -8,6 +8,7 @@ services:
       - jenkins_home:/var/jenkins_home
       - release_packages:/repo/releases
       - maven_m2:/root/.m2
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 8080:8080
       - 50000:50000
