@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  jupyter:
+    image: jupyter/datascience-notebook
+    volumes:
+      - jupyter_work:/home/jovyan/work
+    ports:
+      - 8888:8888
+
+volumes:
+  jupyter_work:
