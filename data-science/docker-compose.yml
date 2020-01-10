@@ -7,6 +7,18 @@ services:
       - jupyter_work:/home/jovyan/work
     ports:
       - 8888:8888
+  zeppelin:
+    image: apache/zeppelin:0.8.1
+    volumes:
+      - zeppelin_work:/notebook
+      - zeppelin_logs:/logs
+    ports:
+      - 8080:8080
+    environment:
+      - ZEPPELIN_NOTEBOOK_DIR=/notebook
+      - ZEPPELIN_LOG_DIR=/logs
 
 volumes:
   jupyter_work:
+  zeppelin_work:
+  zeppelin_logs:
