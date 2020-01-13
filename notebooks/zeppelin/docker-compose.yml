@@ -7,6 +7,7 @@ services:
     volumes:
       - zeppelin_work:/notebook
       - zeppelin_logs:/logs
+      - zeppelin_data:/data
     ports:
       - 8088:8080
     environment:
@@ -20,3 +21,4 @@ services:
 volumes:
   zeppelin_work:
   zeppelin_logs:
+  zeppelin_data:
