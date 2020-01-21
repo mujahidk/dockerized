@@ -1,6 +1,15 @@
 version: "3.7"
 
 services:
+  neo4j:
+    image: neo4j
+    ports:
+        - 7474:7474
+        - 7687:7687
+    volumes:
+      - zeppelin_data:/data
+    environment:
+        - NEO4J_AUTH=neo4j/notebook
   zeppelin:
     image: apache/zeppelin:0.8.1
     # build: . ## For customizing Zeppelin configuration using config files.
