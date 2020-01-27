@@ -7,16 +7,22 @@ services:
         - 7474:7474
         - 7687:7687
     volumes:
-      - zeppelin_data:/data
+      - neo4j_data:/data
+      - shared_data:/var/lib/neo4j/import/
+      - neo4j_plugins:/plugins
     environment:
-        - NEO4J_AUTH=neo4j/notebook
+        - NEO4J_AUTH=${NEO4J_AUTH}
+        - NEO4J_apoc_export_file_enabled=true
+        - NEO4J_apoc_import_file_enabled=true
+        - NEO4J_apoc_import_file_use__neo4j__config=true
   zeppelin:
     image: apache/zeppelin:0.8.1
     # build: . ## For customizing Zeppelin configuration using config files.
     volumes:
       - zeppelin_work:/notebook
       - zeppelin_logs:/logs
-      - zeppelin_data:/data
+      - shared_data:/data
+      - neo4j_plugins:/neo4j/plugins
     ports:
       - 8088:8080
     environment:
@@ -30,4 +36,6 @@ services:
 volumes:
   zeppelin_work:
   zeppelin_logs:
-  zeppelin_data:
+  neo4j_data:
+  shared_data:
+  neo4j_plugins:
